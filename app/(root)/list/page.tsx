@@ -1,3 +1,5 @@
+"use client"
+
 import Remove from "@/components/list/Remove";
 import {
   Table,
@@ -10,8 +12,9 @@ import {
 import { url } from "@/url"
 import axios from "axios"
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-interface Food {
+export interface Food {
   _id: string;
   name: string;
   image: string;
@@ -20,59 +23,81 @@ interface Food {
   category: string;
 }
 
-export default async function FoodList() {
+export default function FoodList() {
 
-  const { data: { foods } } = await axios.get(url + "/food/readFoods");
+  const [foods, setFoods] = useState<Food[]>([])
+  const [isDisabled, setIsDisabled] = useState<boolean>(false)
+
+  useEffect(() => {
+
+    async function getFoods() {
+
+      const { data: { foods } } = await axios.get(url + "/food/readFoods")
+
+      setFoods(foods)
+    }
+
+    getFoods()
+
+  }, [])
 
   return (
     <section className="col-span-6 space-y-4 p-10">
 
-      <h2 className="text-[#6d6d6d]">All Foods List</h2>
+      {foods.length === 0 ? (
 
-      <Table className="border-[2px]">
+        <p className="flex-center text-[20px]">Loading</p>
 
-        <TableHeader>
+      ) : (
+        <>
+          <h2 className="text-[#6d6d6d]">All Foods List</h2>
 
-          <TableRow>
+          <Table className="border-[2px]">
 
-            <TableHead className="w-[100px]">Image</TableHead>
-            <TableHead className="text-left">Name</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Remove</TableHead>
+            <TableHeader>
 
-          </TableRow>
+              <TableRow>
 
-        </TableHeader>
+                <TableHead className="w-[100px]">Image</TableHead>
+                <TableHead className="text-left">Name</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead>Remove</TableHead>
 
-        <TableBody>
+              </TableRow>
 
-          {foods.map((food: Food) => (
+            </TableHeader>
 
-            <TableRow key={food._id}>
+            <TableBody>
 
-              <TableCell>
+              {foods.map((food: Food) => (
 
-                <Image 
-                  src={food.image} 
-                  alt="image"
-                  width={100}
-                  height={100} 
-                />
+                <TableRow key={food._id} className={`${isDisabled ? "opacity-70" : ""}`}>
 
-              </TableCell>
+                  <TableCell>
 
-              <TableCell>{food.name}</TableCell>
-              <TableCell>{food.category}</TableCell>
-              <TableCell>{food.price}</TableCell>
-              <TableCell><Remove id={food._id} /></TableCell>
+                    <Image
+                      src={food.image}
+                      alt={food.name}
+                      width={100}
+                      height={100}
+                    />
 
-            </TableRow>
-          ))}
+                  </TableCell>
 
-        </TableBody>
+                  <TableCell>{food.name}</TableCell>
+                  <TableCell>{food.category}</TableCell>
+                  <TableCell>{food.price}</TableCell>
+                  <TableCell><Remove id={food._id} setFoods={setFoods} isDisabled={isDisabled} setIsDisabled={setIsDisabled} /></TableCell>
 
-      </Table>
+                </TableRow>
+              ))}
+
+            </TableBody>
+
+          </Table>
+        </>
+      )}
 
     </section>
   )
