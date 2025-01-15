@@ -18,6 +18,7 @@ import Link from "next/link"
 import axios from "axios"
 import { url } from "@/url"
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast"
 
 
 const formSchema = z.object({
@@ -40,6 +41,7 @@ const formSchema = z.object({
 export default function Registration() {
 
   const router = useRouter();
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,6 +65,8 @@ export default function Registration() {
         provider: "credentials"
       })
 
+      console.log(response.data.message)
+
       if (response.data.status) {
 
         toast({
@@ -74,7 +78,7 @@ export default function Registration() {
 
         const timeOutID = setTimeout(() => {
           router.push("/login")
-        }, 2000)
+        }, 1000)
 
         return () => clearTimeout(timeOutID)
       }
@@ -92,7 +96,6 @@ export default function Registration() {
           variant: "error",
           description: error.message
         })
-
       }
     }
   }

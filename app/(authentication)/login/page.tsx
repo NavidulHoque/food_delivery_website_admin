@@ -4,6 +4,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button"
 import {
@@ -16,16 +17,13 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
-import { credentialLogin } from "../actions"
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast"
-import axios from "axios"
-import { url } from "@/url"
 
 
 const formSchema = z.object({
 
-  email: z.string().min(1, "Email is required"),
+  email: z.string().min(1, "Email is required").email({ message: "Invalid email address" }),
   password: z.string().min(1, "Password is required")
 })
 
@@ -47,25 +45,24 @@ export default function Login() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
+    const {email, password} = values
+
     try {
 
-      const response = await axios.post(url + "/auth/login", {
-        email: values.email,
-        password: values.password,
-      })
+      const result = await signIn("credentials", {redirect: false, email, password })
 
-      if (response.data.status) {
+      if (result?.error) {
 
-        await credentialLogin(values);
-
-        form.reset();
+        console.log(result?.error)
+        
+				throw new Error(result?.error)
+			} 
+      
+      else {
+				form.reset();
 
         router.push("/")
-      }
-
-      else {
-        throw new Error(response.data.message);
-      }
+			}
     }
 
     catch (error) {
