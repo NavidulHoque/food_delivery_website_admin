@@ -9,19 +9,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Food } from "@/lib/type";
 import { url } from "@/url"
 import axios from "axios"
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export interface Food {
-  _id: string;
-  name: string;
-  image: string;
-  price: number;
-  description: string;
-  category: string;
-}
+
 
 export default function FoodList() {
 
