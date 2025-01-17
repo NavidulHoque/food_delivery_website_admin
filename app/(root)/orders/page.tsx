@@ -4,6 +4,7 @@ import { OrderObj } from "@/lib/type"
 import Order from "@/components/orders/Order"
 import RealTimeCommunication from "@/components/orders/RealTimeCommunication"
 
+export const dynamic = "force-dynamic";
 
 export default async function Orders() {
 
