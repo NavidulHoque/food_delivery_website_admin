@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Logo from "@/public/logo.png"
 import Link from "next/link";
+import UserInfo from "./UserInfo";
 
 export default function Navbar() {
   return (
@@ -19,13 +20,7 @@ export default function Navbar() {
         
       </Link>
 
-
-      <Link
-        className="text-[20px] border-[1px] border-tomato py-3 px-5 rounded-full hover:bg-[#fff4f2] transition duration-300"
-        href="/login"
-      >
-        Sign In
-      </Link>
+      <UserInfo />
 
     </nav>
   )

@@ -1,6 +1,6 @@
 "use client";
 
-import { Food } from "@/app/(root)/list/page";
+import { Food } from "@/lib/type"; 
 import { useToast } from "@/hooks/use-toast";
 import { url } from "@/url";
 import axios from "axios";

@@ -42,7 +42,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
                 const { email, password } = credentials
 
-                const response = await axios.post(url + "/auth/login", { email, password })
+                const response = await axios.post(url + "/auth/login", { email, password, role: "admin" })
 
                 if (response.data.status) {
 
@@ -71,6 +71,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     username: user.name,
                     photo: user.image,
                     provider: account?.provider,
+                    role: "admin"
                 })
 
                 return true;
@@ -100,7 +101,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
             if (token.provider !== "credentials") {
 
-                const response = await axios.post(url + "/user/read", { email: token.email, provider: token.provider })
+                const response = await axios.post(url + "/user/read", { email: token.email, provider: token.provider, role: "admin" })
 
                 session.user = response.data.user;
             }

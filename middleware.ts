@@ -8,7 +8,7 @@
 // })
 
 export const config = {
-    matcher: ["/cart", "/placeOrder", "/myOrders"],
+    matcher: ["/add", "/list", "/orders"],
 };
 
 export { auth as middleware } from "@/auth"
