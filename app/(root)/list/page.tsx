@@ -40,7 +40,9 @@ export default function FoodList() {
 
       {foods.length === 0 ? (
 
-        <p className="flex-center text-[20px]">Loading</p>
+        <div className="flex-center">
+          <p className="flex-center text-[20px]">Loading...</p>
+        </div>
 
       ) : (
         <>
