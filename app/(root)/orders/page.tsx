@@ -15,11 +15,25 @@ export default async function Orders() {
       <RealTimeCommunication />
       <section className="col-span-6 space-y-8 p-10">
 
-        <h1 className="text-28-semibold text-[#454545]">My Orders</h1>
+        {orders.length === 0 ? (
 
-        {orders.map((order: OrderObj) => (
-          <Order key={order.id} order={order} />
-        ))}
+          <div className="flex-center">
+            <h1 className="text-tomato text-36-semibold">No orders to show</h1>
+          </div>
+
+        ) : (
+
+          <>
+            <h1 className="text-28-semibold text-[#454545]">My Orders</h1>
+
+            {orders.map((order: OrderObj) => (
+              <Order key={order.id} order={order} />
+            ))}
+          </>
+          
+        )}
+
+
 
       </section>
     </>
