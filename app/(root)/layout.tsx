@@ -7,7 +7,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
             <Navbar />
 
-            <section className="grid grid-cols-7 min-h-[90.5vh]">
+            <section className="grid grid-cols-12 min-h-[90.5vh]">
 
                 <Sidebar />
                 {children}

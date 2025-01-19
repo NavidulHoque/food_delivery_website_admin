@@ -5,7 +5,7 @@ import UserInfo from "./UserInfo";
 
 export default function Navbar() {
   return (
-    <nav className="col-span-full flex-between py-4 px-16 border-b-2 border-[#a9a9a9]">
+    <nav className="col-span-full flex-between py-4 sm:px-16 px-3 border-b-2 border-[#a9a9a9]">
 
       <Link href="/">
 

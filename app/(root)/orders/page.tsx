@@ -13,7 +13,7 @@ export default async function Orders() {
   return (
     <>
       <RealTimeCommunication />
-      <section className="col-span-6 space-y-8 p-10">
+      <section className="grid-column_pages space-y-8 sm:p-10 p-4">
 
         {orders.length === 0 ? (
 

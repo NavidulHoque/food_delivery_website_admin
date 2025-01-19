@@ -1,3 +1,3 @@
 export default function Home() {
-    return <section className="col-span-5"></section>
+    return <section className="grid-column_pages"></section>
 }

@@ -29,7 +29,7 @@
   }
 
   .sidebar-items{
-    @apply self-end flex items-center gap-x-3 w-[200px] border-t-2 border-b-2 border-l-2 py-2 pl-3 hover:bg-[#fff0ed] hover:border-tomato transition duration-150;
+    @apply self-end flex items-center gap-x-3 sm:w-[200px] border-t-2 border-b-2 border-l-2 py-2 pl-3 hover:bg-[#fff0ed] hover:border-tomato transition duration-150;
   }
 
   .flex-center{
@@ -46,6 +46,10 @@
 
   .hover-scale{
     @apply hover:scale-105 transition-all duration-300;
+  }
+
+  .grid-column_pages{
+    @apply xl:col-span-10 min-[850px]:col-span-9 sm:col-span-8 col-span-9;
   }
 }
 

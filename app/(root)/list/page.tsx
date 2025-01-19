@@ -16,7 +16,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 
-
 export default function FoodList() {
 
   const [foods, setFoods] = useState<Food[]>([])
@@ -36,7 +35,7 @@ export default function FoodList() {
   }, [])
 
   return (
-    <section className="col-span-6 space-y-4 p-10">
+    <section className="grid-column_pages space-y-4 sm:p-10 p-4">
 
       {foods.length === 0 ? (
 

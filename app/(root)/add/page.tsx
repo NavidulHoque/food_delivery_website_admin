@@ -147,11 +147,11 @@ export default function AddFood() {
   }
 
   return (
-    <section className="col-span-6 space-y-8 p-10">
+    <section className="grid-column_pages space-y-8 sm:p-10 p-4">
 
       <div className="flex-column gap-y-3">
 
-        <p className="text-[20px]">Upload Image</p>
+        <p className="text-[20px] font-medium">Upload Image</p>
 
         <Image
           src={renderImage ? renderImage : upload}
@@ -230,11 +230,11 @@ export default function AddFood() {
             )}
           />
 
-          <div className="flex gap-x-7">
+          <div className="flex sm:flex-row flex-col gap-y-3 gap-x-7">
 
             <div className="flex-column gap-y-2">
 
-              <p className="text-lg leading-[25.6px]">Product Category</p>
+              <p className="text-lg leading-[25.6px] font-medium">Product Category</p>
 
               <Select
                 value={category} 

@@ -4,12 +4,14 @@ import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { FaListUl } from "react-icons/fa";
 import { usePathname  } from "next/navigation";
+import order from "@/public/order_icon.png"
+import Image from "next/image";
 
 export default function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <section className="col-span-1 border-r-2 border-[#a9a9a9]">
+    <section className="xl:col-span-2 min-[850px]:col-span-3 sm:col-span-4 col-span-3 border-r-2 border-[#a9a9a9]">
 
       <div className="flex-column gap-y-8 pt-10">
 
@@ -17,7 +19,7 @@ export default function Sidebar() {
 
           <IoIosAddCircleOutline className="size-10 mx-1" />
 
-          <span className="text-[20px]">Add Items</span>
+          <span className="text-[20px] sm:inline-block hidden">Add Items</span>
 
         </Link>
 
@@ -25,15 +27,15 @@ export default function Sidebar() {
 
           <FaListUl className="size-8 mx-2" />
 
-          <span className="text-[20px]">Food List</span>
+          <span className="text-[20px] sm:inline-block hidden">Food List</span>
 
         </Link>
 
         <Link href="/orders" className={`sidebar-items ${pathname === "/orders" ? "bg-[#fff0ed] border-tomato" : "border-[#a9a9a9]"}`}>
 
-          <FaListUl className="size-8 mx-2" />
+          <Image src={order} alt="order" className="size-8 mx-2" />
 
-          <span className="text-[20px]">Orders</span>
+          <span className="text-[20px] sm:inline-block hidden">Orders</span>
 
         </Link>
 
