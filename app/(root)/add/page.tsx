@@ -119,10 +119,20 @@ export default function AddFood() {
           setBase64Image("")
           setCategory("")
         }
+
+        else{
+          throw new Error(data.message);
+        }
       }
 
       catch (error) {
-        console.error(error);
+        
+        if (error instanceof Error) {
+          toast({
+            variant: "error",
+            title: error.message
+          })
+        }
       }
     }
 

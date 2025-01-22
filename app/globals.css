@@ -24,6 +24,10 @@
     @apply font-medium text-[36px] leading-10;
   }
 
+  .text-40-medium{
+    @apply font-medium text-[40px] leading-[44px];
+  }
+
   .text-60-semibold{
     @apply text-[60px] leading-[70px] font-semibold;
   }
@@ -50,6 +54,10 @@
 
   .grid-column_pages{
     @apply xl:col-span-10 min-[850px]:col-span-9 sm:col-span-8 col-span-9;
+  }
+
+  .not-found_main-section{
+    @apply h-[82vh] grid-column_pages flex-column items-center justify-center gap-y-3 sm:p-10 p-4;
   }
 }
 

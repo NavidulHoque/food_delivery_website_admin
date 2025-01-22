@@ -27,10 +27,20 @@ export default function Remove({ id }: { id: string; }) {
 
                 setPending(false)
             }
+
+            else {
+                throw new Error(data.message);
+            }
         }
 
         catch (error) {
-            console.error(error);
+            
+            if (error instanceof Error) {
+                toast({
+                    variant: "error",
+                    title: error.message
+                })
+            }
         }
     };
 
