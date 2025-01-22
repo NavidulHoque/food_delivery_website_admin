@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function Orders() {
 
-  const { data: { orders } } = await axios.get(url + '/order/allOrders')
+  const { data: { orders } } = await axios.get(url + '/order/allOrders/admin')
 
   return (
     <>

@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache"
 
 export async function updateStatus(id: string, status: string){
 
-    await axios.put(url + "/order/update", {id, status})
+    await axios.put(url + "/order/update/admin", {id, status})
     return
 }
 

@@ -29,12 +29,12 @@ import {
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import { useRef, useState } from "react"
-import axios from "axios"
-import { url } from "@/url"
+import { generateImageURL } from "../actions/image"
+import { createFood } from "../actions/food"
 
 const formSchema = z.object({
 
-  foodName: z.string().min(1, "Food name is required"),
+  name: z.string().min(1, "Food name is required"),
 
   price: z.string().min(1, "Price is required"),
 
@@ -52,7 +52,7 @@ export default function AddFood() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      foodName: "",
+      name: "",
       price: "",
       description: ""
     },
@@ -103,19 +103,11 @@ export default function AddFood() {
 
       try {
 
-        const imageResponse = await axios.post(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`, formData)
+        const imageURL = await generateImageURL(formData)
 
-        const { foodName, price, description } = values
+        const data = await createFood(values, imageURL, category)
 
-        const mongoDBResponse = await axios.post(url + "/food/createFood", {
-          name: foodName,
-          image: imageResponse.data.data.url,
-          price,
-          description,
-          category
-        })
-
-        if (mongoDBResponse.data.status) {
+        if (data.status) {
 
           toast({
             variant: "success",
@@ -127,20 +119,10 @@ export default function AddFood() {
           setBase64Image("")
           setCategory("")
         }
-
-        else{
-          throw new Error(mongoDBResponse.data.message)
-        }
       }
 
       catch (error) {
-
-        const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
-
-        toast({
-          variant: "error",
-          title: errorMessage
-        })
+        console.error(error);
       }
     }
 
@@ -180,7 +162,7 @@ export default function AddFood() {
 
           <FormField
             control={form.control}
-            name="foodName"
+            name="name"
             render={({ field }) => (
 
               <FormItem>

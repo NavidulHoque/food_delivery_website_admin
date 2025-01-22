@@ -1,5 +1,3 @@
-"use client"
-
 import Remove from "@/components/list/Remove";
 import {
   Table,
@@ -10,29 +8,14 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Food } from "@/lib/type";
-import { url } from "@/url"
-import axios from "axios"
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { fetchFoods } from "../actions/food";
 
+export const dynamic = "force-dynamic";
 
-export default function FoodList() {
+export default async function FoodList() {
 
-  const [foods, setFoods] = useState<Food[]>([])
-  const [isDisabled, setIsDisabled] = useState<boolean>(false)
-
-  useEffect(() => {
-
-    async function getFoods() {
-
-      const { data: { foods } } = await axios.get(url + "/food/readFoods")
-
-      setFoods(foods)
-    }
-
-    getFoods()
-
-  }, [])
+  const foods = await fetchFoods()
 
   return (
     <section className="grid-column_pages space-y-4 sm:p-10 p-4">
@@ -67,7 +50,7 @@ export default function FoodList() {
 
               {foods.map((food: Food) => (
 
-                <TableRow key={food._id} className={`${isDisabled ? "opacity-70" : ""}`}>
+                <TableRow key={food._id}>
 
                   <TableCell>
 
@@ -83,7 +66,7 @@ export default function FoodList() {
                   <TableCell>{food.name}</TableCell>
                   <TableCell>{food.category}</TableCell>
                   <TableCell>{food.price}</TableCell>
-                  <TableCell><Remove id={food._id} setFoods={setFoods} isDisabled={isDisabled} setIsDisabled={setIsDisabled} /></TableCell>
+                  <TableCell><Remove id={food._id} /></TableCell>
 
                 </TableRow>
               ))}

@@ -1,63 +1,38 @@
 "use client";
 
-import { Food } from "@/lib/type"; 
+import { deleteFoodBackend } from "@/app/(root)/actions/food";
 import { useToast } from "@/hooks/use-toast";
-import { url } from "@/url";
-import axios from "axios";
 import { X } from "lucide-react";
+import { useState } from "react";
 
-export default function Remove({
-    id,
-    setFoods,
-    isDisabled,
-    setIsDisabled
-}: {
-    id: string;
-    setFoods: React.Dispatch<React.SetStateAction<Food[]>>;
-    isDisabled: boolean;
-    setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function Remove({ id }: { id: string; }) {
 
     const { toast } = useToast();
+    const [pending, setPending] = useState(false)
 
     const removeFood = async () => {
 
-        setIsDisabled(true)
+        setPending(true)
 
         try {
 
-            const response = await axios.delete(url + `/food/${id}`)
+            const data = await deleteFoodBackend(id)
 
-            if (response.data.status) {
-
-                setFoods(prevFoods => {
-                    return prevFoods.filter(prevFood => prevFood._id !== id)
-                })
-
-                setIsDisabled(false)
+            if (data.status) {
 
                 toast({
                     variant: "success",
-                    title: response.data.message,
-                });
-            } 
+                    title: data.message,
+                })
 
-            else {
-                throw new Error(response.data.message);
+                setPending(false)
             }
-        } 
+        }
 
         catch (error) {
-
-            const errorMessage =
-                error instanceof Error ? error.message : "An unknown error occurred";
-
-            toast({
-                variant: "error",
-                title: errorMessage,
-            });
+            console.error(error);
         }
     };
 
-    return <X onClick={() => !isDisabled ? removeFood() : ""} className={`${!isDisabled ? "cursor-pointer" : ""}`} />
+    return <X onClick={removeFood} className={`${pending ? "opacity-50" : "cursor-pointer"}`} />
 }
