@@ -9,7 +9,7 @@ export default function ShowHeading() {
     const heading = (pathname === "/registration") ? (
         <Heading title="Create your account" description="Please fill in the details to get started." />
     ) : (
-        <Heading title="Sign in to Bg Removal" description="Welcome back! Please sign in to continue" />
+        <Heading title="Sign in to Tomato" description="Welcome back! Please sign in to continue" />
     )
 
     return heading
