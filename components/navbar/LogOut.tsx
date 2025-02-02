@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useState } from "react"
 import logoutIcon from "@/public/logout_icon.png"
-import { logout } from "@/app/(authentication)/actions/auth";
+import { signOut } from "next-auth/react"
 
 export default function LogOut() {
 
@@ -12,7 +12,7 @@ export default function LogOut() {
   const handleLogout = async () => {
 
     setLoading(true)
-    await logout()
+    signOut({redirectTo: "/"})
   }
 
   return (
